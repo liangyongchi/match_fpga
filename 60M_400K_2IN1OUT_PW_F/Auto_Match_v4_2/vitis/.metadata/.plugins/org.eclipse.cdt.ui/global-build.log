@@ -1,0 +1,16 @@
+Nothing to build in platform 'SYS_BD_TOP'
+
+17:56:04 **** Incremental Build of configuration Debug for project rf_ps ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+make[1]: Nothing to be done for 'main-build'.
+17:56:05 **** Incremental Build of configuration Debug for project rf_ps_system ****
+make all 
+Generating bif file for the system project
+generate_system_bif.bat 53928 E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/SYS_BD_TOP/export/SYS_BD_TOP/SYS_BD_TOP.xpfm freertos10_xilinx_ps7_cortexa9_0 E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps_system/Debug/system.bif
+sdcard_gen --xpfm E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/SYS_BD_TOP/export/SYS_BD_TOP/SYS_BD_TOP.xpfm --sys_config SYS_BD_TOP --bif E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps_system/Debug/system.bif --bitstream E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps/_ide/bitstream/SYS_BD_TOP.bit --elf E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps/Debug/rf_ps.elf,ps7_cortexa9_0
+creating BOOT.BIN using E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps/_ide/bitstream/SYS_BD_TOP.bit
+Running D:/Xilinx/Vitis/2020.2/bin/bootgen  -image E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps_system/Debug/sd_card_temp/boot.bif -w -o i BOOT.BIN

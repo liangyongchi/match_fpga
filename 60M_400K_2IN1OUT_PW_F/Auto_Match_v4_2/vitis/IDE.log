@@ -1,0 +1,53 @@
+17:51:40 INFO  : Registering command handlers for Vitis TCF services
+17:51:40 INFO  : Launching XSCT server: xsct.bat -n  -interactive E:\1-code\match\60M_400K_DOUBLE_FREQ_2IN1OUT\60M_400K_2IN1OUT_PW_F\Auto_Match_v4_2\vitis\temp_xsdb_launch_script.tcl
+17:51:43 INFO  : Platform repository initialization has completed.
+17:51:43 INFO  : XSCT server has started successfully.
+17:51:43 INFO  : plnx-install-location is set to ''
+17:51:44 INFO  : Successfully done setting XSCT server connection channel  
+17:51:44 INFO  : Successfully done query RDI_DATADIR 
+17:51:44 INFO  : Successfully done setting workspace for the tool. 
+17:52:28 INFO  : Result from executing command 'getProjects': SYS_BD_TOP
+17:52:28 INFO  : Result from executing command 'getPlatforms': 
+17:52:28 WARN  : An unexpected exception occurred in the module 'platform project logging'
+17:52:29 INFO  : Platform 'SYS_BD_TOP' is added to custom repositories.
+17:52:38 INFO  : Platform 'SYS_BD_TOP' is added to custom repositories.
+17:53:07 INFO  : Result from executing command 'getProjects': SYS_BD_TOP
+17:53:08 INFO  : Result from executing command 'getPlatforms': SYS_BD_TOP|E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/SYS_BD_TOP/export/SYS_BD_TOP/SYS_BD_TOP.xpfm
+17:53:08 INFO  : Checking for BSP changes to sync application flags for project 'rf_ps'...
+17:53:24 INFO  : Checking for BSP changes to sync application flags for project 'rf_ps'...
+17:54:48 INFO  : Checking for BSP changes to sync application flags for project 'rf_ps'...
+17:55:23 INFO  : Checking for BSP changes to sync application flags for project 'rf_ps'...
+17:55:46 INFO  : Checking for BSP changes to sync application flags for project 'rf_ps'...
+17:56:04 INFO  : Checking for BSP changes to sync application flags for project 'rf_ps'...
+13:50:17 INFO  : Launching XSCT server: xsct.bat -n  -interactive E:\1-code\match\60M_400K_DOUBLE_FREQ_2IN1OUT\60M_400K_2IN1OUT_PW_F\Auto_Match_v4_2\vitis\temp_xsdb_launch_script.tcl
+13:50:21 INFO  : XSCT server has started successfully.
+13:50:21 INFO  : plnx-install-location is set to ''
+13:50:21 INFO  : Successfully done setting XSCT server connection channel  
+13:50:21 INFO  : Successfully done setting workspace for the tool. 
+13:50:23 INFO  : Platform repository initialization has completed.
+13:50:25 INFO  : Registering command handlers for Vitis TCF services
+13:50:33 INFO  : Successfully done query RDI_DATADIR 
+10:45:43 INFO  : Launching XSCT server: xsct.bat -n  -interactive E:\1-code\match\60M_400K_DOUBLE_FREQ_2IN1OUT\60M_400K_2IN1OUT_PW_F\Auto_Match_v4_2\vitis\temp_xsdb_launch_script.tcl
+10:45:47 INFO  : XSCT server has started successfully.
+10:45:47 INFO  : Successfully done setting XSCT server connection channel  
+10:45:47 INFO  : plnx-install-location is set to ''
+10:45:47 INFO  : Successfully done setting workspace for the tool. 
+10:45:47 INFO  : Platform repository initialization has completed.
+10:45:50 INFO  : Registering command handlers for Vitis TCF services
+10:45:58 INFO  : Successfully done query RDI_DATADIR 
+13:49:19 INFO  : Launching XSCT server: xsct.bat -n  -interactive E:\1-code\match\60M_400K_DOUBLE_FREQ_2IN1OUT\60M_400K_2IN1OUT_PW_F\Auto_Match_v4_2\vitis\temp_xsdb_launch_script.tcl
+13:49:24 INFO  : XSCT server has started successfully.
+13:49:24 INFO  : Successfully done setting XSCT server connection channel  
+13:49:24 INFO  : plnx-install-location is set to ''
+13:49:24 INFO  : Successfully done setting workspace for the tool. 
+13:49:29 INFO  : Platform repository initialization has completed.
+13:49:29 INFO  : Registering command handlers for Vitis TCF services
+13:49:36 INFO  : Successfully done query RDI_DATADIR 
+14:48:22 INFO  : Launching XSCT server: xsct.bat -n  -interactive E:\1-code\match\60M_400K_DOUBLE_FREQ_2IN1OUT\60M_400K_2IN1OUT_PW_F\Auto_Match_v4_2\vitis\temp_xsdb_launch_script.tcl
+14:48:24 INFO  : XSCT server has started successfully.
+14:48:24 INFO  : Successfully done setting XSCT server connection channel  
+14:48:24 INFO  : plnx-install-location is set to ''
+14:48:24 INFO  : Successfully done setting workspace for the tool. 
+14:48:26 INFO  : Successfully done query RDI_DATADIR 
+14:48:28 INFO  : Platform repository initialization has completed.
+14:48:28 INFO  : Registering command handlers for Vitis TCF services

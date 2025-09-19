@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="rf_ps_system-imgFile" value="E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/rf_ps_system/Debug/sd_card/BOOT.BIN"/>
+	<item key="rf_ps_system-offSet" value=""/>
+	<item key="rf_ps_system-initFile" value="E:/1-code/match/60M_400K_DOUBLE_FREQ_2IN1OUT/60M_400K_2IN1OUT_PW_F/Auto_Match_v4_2/vitis/SYS_BD_TOP/export/SYS_BD_TOP/sw/SYS_BD_TOP/boot/fsbl.elf"/>
+	<item key="rf_ps_system-flashType" value="qspi-x8-dual_parallel"/>
+	<item key="rf_ps_system-verifyFlash" value="false"/>
+	<item key="rf_ps_system-blankCheck" value="false"/>
+	<item key="rf_ps_system-device" value="Auto Detect"/>
+	<item key="rf_ps_system-target" value="Local"/>
+	<item key="programflash.hwplatform" value="rf_ps_system"/>
+</section>
