@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
-module CW_PW_R_JX_RESULT(
-       input                  clk              ,
+module CW_PW_R_JX_RESULT( //为了拿到稳定值 做延时
+       input                  clk              , //顺序 ： （0 hf  1 os0） 2 lf  3 os1 4 os2
 	   input                  ch_sel           ,
 	   
        input       [31 : 0]   R0_AVG           ,
@@ -277,7 +277,7 @@ always @(posedge clk)
 
  //LF  
 always @(posedge clk) 
-	if(PW_MODE2 &&pulse2_pwm_on)begin  
+	if(PW_MODE2 &&pulse2_pwm_on)begin  //pulse2_pwm_on 是硬件波形有问题，脉冲开启后，检测稳定后，延时长时间再采样
 	      R2  <= R2_AVG ; 
 	      JX2 <= JX2_AVG;
 	end
@@ -329,11 +329,11 @@ always @(posedge clk)
 
 
 always @(posedge clk) 
-	if( (PW_MODE2 && pulse2_pwm_on) )begin
+	if( (PW_MODE1 && pulse1_pwm_on) )begin //PW_MODE1 pulse1_pwm_on  有bug,但是没用os0
 		  OS0_V_RESULT<= OS0_V_AVG ;
 		  OS0_I_RESULT<= OS0_I_AVG ;		  
     end
-	else if( CW_MODE2&&OPEN2 )begin
+	else if( CW_MODE1&&OPEN1 )begin
 		  OS0_V_RESULT<= OS0_V_AVG ;
 		  OS0_I_RESULT<= OS0_I_AVG ;
 	end

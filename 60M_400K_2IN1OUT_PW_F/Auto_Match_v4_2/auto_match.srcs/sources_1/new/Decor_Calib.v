@@ -26,23 +26,19 @@ module Decor_Calib(
     
     input           i_sys_start             ,
     output          o_sys_start             ,
-    
     input           i_calib_en              ,
-    
     //output  [31:0]  o_adc0_mean             ,	//从SPI发来
     //output  [31:0]  o_adc1_mean             ,
     
     // adc original data
     input           i_adc0_lpf_vld          ,
     input   [63:0]  i_adc0_lpf_data         ,
-    
     input           i_adc1_lpf_vld          ,
     input   [63:0]  i_adc1_lpf_data         ,
     
     // adc calib data
     output          o_adc0_calib_vld        ,
     output  [63:0]  o_adc0_calib_data       ,
-    
     output          o_adc1_calib_vld        ,
     output  [63:0]  o_adc1_calib_data       ,
 	//SPI DATA

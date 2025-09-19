@@ -1,9 +1,9 @@
 module average_signed(
-	input 		clk_i,
-	input 		rst_i,
-
-	input [31:0]	din,
-	input			en_in,
+	input 		        clk_i,
+	input 		        rst_i,
+    
+	input [31:0]	    din,
+	input			    en_in,
 	
 	output reg [31:0]	dout,
 	output reg 			en_out

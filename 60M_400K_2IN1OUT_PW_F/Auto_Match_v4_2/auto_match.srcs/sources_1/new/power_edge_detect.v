@@ -19,13 +19,12 @@ module power_edge_detect(
 	input                power0_sub_vld  ,
 	
 	input   [35:0]       detect_keep_dly ,
-    input   [35:0]	     rise_delay_cnt  ,
-    input   [35:0]	     fall_delay_cnt  ,
+   input   [35:0]	      rise_delay_cnt  ,
+   input   [35:0]	      fall_delay_cnt  ,
 	
-    input   [15:0]       pulse_start     ,
+   input   [15:0]       pulse_start     ,
 	input   [15:0]       pulse_end       ,
-	
-    output  reg          power_keep      ,
+   output  reg          power_keep      ,
 	output               power_fall      ,
 	output               power_rise      ,
 	output  reg          avg_keep        ,
@@ -56,7 +55,7 @@ reg [15:0]  buf1_temp_power0;
 reg [15:0]  buf2_temp_power0;
 reg [15:0]  buf3_temp_power0;
 
-reg [15:0]  sub_buf2_buf0  ;
+reg [15:0]  sub_buf2_buf0  ;//上升的差值
 reg [15:0]  sub_buf0_buf2  ;
 reg [15:0]  sub_buf3_buf1  ;
 reg [15:0]  sub_buf1_buf3  ;
@@ -76,7 +75,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       power_keep <= 1'b0; 	
 end	  
-
 //buf detect fall  ;
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
@@ -86,7 +84,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf0_temp_power0 <= buf0_temp_power0; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       buf1_temp_power0 <= 1'd0;   
@@ -95,7 +92,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf1_temp_power0 <= buf1_temp_power0; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       buf2_temp_power0 <= 1'd0;   
@@ -104,7 +100,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf2_temp_power0 <= buf2_temp_power0; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       buf3_temp_power0 <= 1'd0;   
@@ -113,7 +108,7 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf3_temp_power0 <= buf3_temp_power0; 
 end
-// vld to sub result;
+// vld to sub result;//为负不使用
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub0_buf2_buf0 <= 1'd0;   
@@ -122,7 +117,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub0_buf2_buf0 <= sub0_buf2_buf0; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub0_buf0_buf2 <= 1'd0;   
@@ -131,7 +125,7 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub0_buf0_buf2 <= sub0_buf0_buf2; 
 end
-
+//为负不使用
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub0_buf3_buf1 <= 1'd0;   
@@ -140,7 +134,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub0_buf3_buf1 <= sub0_buf3_buf1; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub0_buf1_buf3 <= 1'd0;   
@@ -149,8 +142,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub0_buf1_buf3 <= sub0_buf1_buf3;     
 end		
-
-
 //**************************************************************
 //buf detect rise  ;
 always@(posedge clk_i or posedge rst_i)begin
@@ -161,7 +152,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf0_temp_power <= buf0_temp_power; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       buf1_temp_power <= 1'd0;   
@@ -170,7 +160,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf1_temp_power <= buf1_temp_power; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       buf2_temp_power <= 1'd0;   
@@ -179,7 +168,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf2_temp_power <= buf2_temp_power; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       buf3_temp_power <= 1'd0;   
@@ -188,8 +176,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       buf3_temp_power <= buf3_temp_power; 
 end
-
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub_buf2_buf0 <= 1'd0;   
@@ -198,7 +184,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub_buf2_buf0 <= sub_buf2_buf0; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub_buf0_buf2 <= 1'd0;   
@@ -207,7 +192,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub_buf0_buf2 <= sub_buf0_buf2; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub_buf3_buf1 <= 1'd0;   
@@ -216,7 +200,6 @@ always@(posedge clk_i or posedge rst_i)begin
    else 
       sub_buf3_buf1 <= sub_buf3_buf1; 
 end
-
 always@(posedge clk_i or posedge rst_i)begin
    if(rst_i)
       sub_buf1_buf3 <= 1'd0;   
@@ -252,10 +235,10 @@ end
 
 //reg [35:0] keep_cnt;
 
-reg        neg_rise_r0,neg_rise_r1;
+reg        neg_rise_r0, neg_rise_r1;
 
 wire       keep_start;
-assign     keep_start = (!neg_rise_r0)&&neg_rise_r1;
+assign     keep_start = (!neg_rise_r0) && neg_rise_r1;
 
 always@(posedge clk_i or posedge rst_i)begin
     if(rst_i)begin
@@ -263,8 +246,8 @@ always@(posedge clk_i or posedge rst_i)begin
 	   neg_rise_r1 <=1'd0;
 	end
 	else begin
-	   neg_rise_r0 <=avg_rise;
-	   neg_rise_r1 <=neg_rise_r0;
+	   neg_rise_r0 <= avg_rise;
+	   neg_rise_r1 <= neg_rise_r0;
 	end
 end
 //****************************************pwm_on detect***********************//

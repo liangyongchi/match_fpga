@@ -1,13 +1,10 @@
 module AVG_IIR_signed(
-	input 		clk_i,
-	input 		rst_i,
-	
+	input 		        clk_i,
+	input 		        rst_i,
 	input [31:0]		din,
 	input 				din_en,
-	
 	output reg [31:0]	dout,
 	output reg 			dout_en
-
 );
 
 parameter N = 6;

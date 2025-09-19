@@ -1,12 +1,10 @@
 module complex_div(
-	input 		      i_clk,	//125m 
-	input 		      i_rstn,
-					  
-	input [31:0]	  vr_i,	//A 
-	input [31:0]	  vr_q,	//B
-	input [31:0]	  vf_i,	//C
-	input [31:0]	  vf_q,	//D
-	
+	input 		        i_clk,	//125m 
+	input 		        i_rstn,
+	input [31:0]	    vr_i,	//A 
+	input [31:0]	    vr_q,	//B
+	input [31:0]	    vf_i,	//C
+	input [31:0]	    vf_q,	//D
 	output reg [31:0] R,	//15位定点数
 	output reg [31:0] JX
 );	//反射/入射  

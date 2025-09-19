@@ -74,49 +74,32 @@ module moto_ctrl(
         end
     end
 
-    // wire alm_down_edge;
-    // edge_detector edge_detector_inst(
-        // .clk      (clk              ),
-        // .rst_n    (rst_n            ),
-        // .din      (MOTO_ALM         ),
-        // .up_edge  (                 ),
-        // .down_edge(alm_down_edge    ),  
-        // .both_edge(                 )
-    // );
-
-    // always @(posedge clk or negedge rst_n) begin
-        // if (!rst_n) begin
-            // MOTO_ALM_STATE <= 1'b0;
-        // end else begin
-            // if (alm_down_edge) begin
-                // MOTO_ALM_STATE <= 1'b1; 
-            // end
-        // end
-    // end
-	
-	
-wire alm_down_edge;
-wire alm_both_edge;
-edge_detector edge_detector_inst(
-    .clk      (clk      ),
-    .rst_n (rst_n ),
-    .din (MOTO_ALM ),
-    .up_edge (  ),
-    .down_edge(alm_down_edge ), 
-    .both_edge(alm_both_edge )
-);
-
+///////////////////////////////
+localparam COUNT_MAX = 100000000 - 1; // 2秒对应计数值
+reg [31:0] alm_cnt;                   // 32位报警计数器
 always @(posedge clk or negedge rst_n) begin
- if (!rst_n) begin
-         MOTO_ALM_STATE <= 1'b0;
- end 
- else if (alm_both_edge) begin
-         MOTO_ALM_STATE <= 1'b1; 
-  end
- else if (!MOTO_EN) begin
-         MOTO_ALM_STATE <= 1'b0; 
- end
-end	
-	
-	assign moto_work_state = {MOTO_ALM_STATE, pwm_on_off_ctrl};
+    if (!rst_n) begin
+        alm_cnt <= 0;               // 复位时计数器清零
+        MOTO_ALM_STATE <= 0;        // 复位时报警状态置0
+    end
+    else if (!MOTO_EN) begin        // 使能信号无效时强制清零
+        alm_cnt <= 0;
+        MOTO_ALM_STATE <= 0;
+    end
+    else if (MOTO_ALM) begin       // 检测到报警信号
+        if (alm_cnt < COUNT_MAX) begin
+            alm_cnt <= alm_cnt + 1; // 未达阈值时持续计数
+        end
+        else begin
+            alm_cnt <= COUNT_MAX;   // 达到2秒后锁定计数值
+            MOTO_ALM_STATE <= 1;    // 置位报警状态
+        end
+    end
+    else begin                      // MOTO_ALM为低时
+        alm_cnt <= 0;               // 计数器清零
+        MOTO_ALM_STATE <= 0;        // 报警状态复位
+    end
+end
+
+assign moto_work_state = {MOTO_ALM_STATE, pwm_on_off_ctrl};
 endmodule

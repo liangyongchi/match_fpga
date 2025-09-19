@@ -33,8 +33,8 @@ module FREQ_RTK_60M
 );
 
 localparam WAIT_NUM = 0;//确定超过阈值的周期个数；
-localparam HALF_FREQ_NUM = 34  ; //64/(12.882-13.56-14.238) = 4.45-4.96;  4.96/2 近似2.5  '//60M的时候adc波形的 lock_cnt 半个周期最大是8 ，超过8认为是pw的低电平 不计数；
-
+localparam HALF_FREQ_NUM = 34  ; //64/(12.882-13.56-14.238) = 4.45-4.96;  4.96/2 近似2.5  //60M的时候adc波形的 lock_cnt 半个周期最大是8 ，超过8认为是pw的低电平 不计数；
+                                 //64/4=16 最大欠采样到63  即采样到1M的信号,则63/1=63  63/2=31.5
 
 
 (* mark_debug="true" *)wire   pos_pwm,neg_pwm;
@@ -160,80 +160,5 @@ always@(posedge i_clk or posedge i_rst)begin
           o_period_total <= period_total;
 end 
 
-
-// always@(posedge i_clk or posedge i_rst)begin
-    // if(i_rst)
-	      // pwm_on  <= 1'd0;
-    // else if (wait_on_cnt > WAIT_NUM-1 )
-		  // pwm_on  <= 1'd1;
-    // else 
-	      // pwm_on  <= 1'd0;
-// end 
-
-// always@(posedge i_clk or posedge i_rst)begin
-    // if(i_rst)
-	      // pwm_off  <= 1'd0;
-    // else if (wait_off_cnt > WAIT_NUM-1 )
-		  // pwm_off  <= 1'd1;
-    // else 
-	      // pwm_off  <= 1'd0;
-// end 
-// //多周期确认超阈值，除去毛刺噪声；
-// always@(posedge i_clk or posedge i_rst)begin
-    // if(i_rst)
-	      // wait_on_cnt <= 8'd0;
-     // else if(pos_pwm_off)
-	      // wait_on_cnt <= 8'd0;
-	// else if( ri_adc_data > ri_threshold2on )
-	      // wait_on_cnt <= wait_on_cnt + 8'd1;
-     // else 
-	      // wait_on_cnt <= wait_on_cnt;
-// end 
-
-// always@(posedge i_clk or posedge i_rst)begin
-    // if(i_rst)
-	      // wait_off_cnt <= 8'd0;
-     // else if(pos_pwm_on)
-	      // wait_off_cnt <= 8'd0;
-	// else if( ri_adc_data < ri_oppsite_threshold2on) //signed 把补码转化成原码来比较；
-	      // wait_off_cnt <= wait_off_cnt + 8'd1;
-     // else 
-	      // wait_off_cnt <= wait_off_cnt;
-// end 
-
-
-// always@(posedge i_clk or posedge i_rst)begin
-    // if(i_rst)begin
-	     // r_pwm_on <= 'd0;
-		 // r_pwm_off<= 'd0;
-    // end
-    // else begin
-	     // r_pwm_on <= pwm_on;
-		 // r_pwm_off<= pwm_off;
-    // end 	  
-
-// end	
-
-// ila_freq_detect ila_freq_detect (
-	// .clk(i_clk), // input wire clk
-
-	// .probe0(o_period_total   ), // input wire [31:0]  probe0  
-	// .probe1(i_adc_data       ), // input wire [13:0]  probe1 
-	// .probe2(i_threshold2on   ), // input wire [15:0]  probe2 
-	// .probe3(i_measure_period ), // input wire [31:0]  probe3 
-	// .probe4(o_period_pos_cnt ), // input wire [31:0]  probe4 
-	// .probe5(lock_cnt), // input wire [7:0]  probe5 
-	// .probe6(pos_pwm), // input wire [0:0]  probe7 
-	// .probe7(neg_pwm), // input wire [0:0]  probe8 
-	// .probe8(ri_adc_data), // input wire [13:0]  probe9 
-	// .probe9(ri_threshold2on), // input wire [15:0]  probe12 
-	// .probe10(ri_oppsite_threshold2on), // input wire [15:0]  probe13 
-	// .probe11(r_pwm), // input wire [0:0]  probe14 
-	// .probe12(period_cnt), // input wire [31:0]  probe15 
-	// .probe13(pwm), // input wire [0:0]  probe16 
-	// .probe14(pos_cnt), // input wire [31:0]  probe19 
-	// .probe15(period_total),
-	// .probe16(LOCK)
-// );
 
 endmodule

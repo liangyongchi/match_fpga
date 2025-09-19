@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module AVG_POWER_FILTER(
+module AVG_POWER_FILTER(  //移动窗口
     input               clk_i              ,
     input               rst_i              ,
     input               power_calib_vld    ,
@@ -27,9 +27,9 @@ module AVG_POWER_FILTER(
     input [15:0]        filtering_value    ,	
     input [23:0]        detect_rise_dly         ,
 	input [23:0]        detect_fall_dly    ,
-	
     output reg [15:0]   power_filter       ,
     output reg          power_filter_vld   ,
+
 	output reg          power_buf0_vld     ,  //缓存窗口参考值；
 	output reg          power_buf1_vld     ,
 	output reg          power_buf2_vld     ,
@@ -42,8 +42,8 @@ module AVG_POWER_FILTER(
 	
 	output reg          power_sub_vld      ,
 	output reg          power0_sub_vld     ,    
-output reg [35:0]       fall_delay_cnt     ,	
-output reg [35:0]       rise_delay_cnt 
+    output reg [35:0]       fall_delay_cnt     ,	
+    output reg [35:0]       rise_delay_cnt 
 );
 
 //fall delay detect;

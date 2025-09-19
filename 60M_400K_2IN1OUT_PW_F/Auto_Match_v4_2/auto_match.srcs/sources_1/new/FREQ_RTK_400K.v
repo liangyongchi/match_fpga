@@ -34,7 +34,7 @@ module FREQ_RTK_400K
 
 localparam WAIT_NUM = 0;//确定超过阈值的周期个数；
 localparam HALF_FREQ_NUM = 92  ; //64/(12.882-13.56-14.238) = 4.45-4.96;  4.96/2 近似2.5  '//60M的时候adc波形的 lock_cnt 半个周期最大是8 ，超过8认为是pw的低电平 不计数；
-
+                                 //64/(0.35--4.5) = 182.8--142 182.8/2 = 91.4
 
 
 (* mark_debug="true" *)wire   pos_pwm,neg_pwm;

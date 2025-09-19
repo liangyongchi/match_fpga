@@ -9,9 +9,6 @@ module r_jx_calib(
 	input      [31:0]	   K2            ,		//=K1
 	output reg [31:0]	   R_OUT         ,	//15位定点数
 	output reg [31:0]	   JX_OUT	     
-	
-	
-
 );	//Z = (a + j(k2+b)) / ((1-bk) + jak1)
 
 reg [31:0]	dividend_i,dividend_q;	//被除数

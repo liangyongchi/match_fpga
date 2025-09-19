@@ -27,33 +27,33 @@ module FREQ_RTK_1356M
 	input                i_adc_vld         , //invalid;
     input      [13:0]    i_adc_data        ,
 	input      [15:0]    i_threshold2on    ,
-	input      [31:0]    i_measure_period  ,
-	output reg [31:0]    o_period_total    ,
-	output reg [31:0]    o_period_pos_cnt          //测量周期个数；        
+	input      [31:0]    i_measure_period  , //默认10ms 即64M计数640 000 //计数次数=频率×时间=64 000 000Hz×0.01s=640000
+	output reg [31:0]    o_period_total    , //64M计数的总时间
+	output reg [31:0]    o_period_pos_cnt    //测量周期个数; 脉冲个数       
 );
 
 localparam WAIT_NUM = 0;//确定超过阈值的周期个数；
-localparam HALF_FREQ_NUM = 3  ; //64/(12.882-13.56-14.238) = 4.45-4.96;  4.96/2 近似2.5  '//60M的时候adc波形的 lock_cnt 半个周期最大是8 ，超过8认为是pw的低电平 不计数；
+localparam HALF_FREQ_NUM = 3  ; //64/(12.882-13.56-14.238) = 4.45-4.96;  4.96/2 近似2.5  //60M的时候adc波形的 lock_cnt 半个周期最大是8 ，超过8认为是pw的低电平 不计数;
 
-wire   pos_pwm,neg_pwm;
+(* mark_debug="true" *)wire   pos_pwm,neg_pwm;
 assign pos_pwm = pwm & ~r_pwm;
 assign neg_pwm = ~pwm & r_pwm;
 
-reg  [13:0]  ri_adc_data; 
-reg  [7:0]   wait_on_cnt,wait_off_cnt  ;
+(* mark_debug="true" *)reg  [13:0]  ri_adc_data; 
+(* mark_debug="true" *)reg  [7:0]   wait_on_cnt,wait_off_cnt  ;
 
-reg  [15:0]  ri_threshold2on;
-reg  [15:0]  ri_oppsite_threshold2on;
+(* mark_debug="true" *)reg  [15:0]  ri_threshold2on;
+(* mark_debug="true" *)reg  [15:0]  ri_oppsite_threshold2on;
 
-reg          pwm        ;
-reg          r_pwm      ;
-reg  [31:0]  period_cnt ;  
-reg  [31:0]  pos_cnt    ; 
+(* mark_debug="true" *)reg          pwm        ;
+(* mark_debug="true" *)reg          r_pwm      ;
+(* mark_debug="true" *)reg  [31:0]  period_cnt ;  
+(* mark_debug="true" *)reg  [31:0]  pos_cnt    ; 
 
-reg          LOCK       ;
-reg  [31:0]  lock_cnt   ; 
+(* mark_debug="true" *)reg          LOCK       ;
+(* mark_debug="true" *)reg  [31:0]  lock_cnt   ; 
 
-reg  [31:0]  period_total;
+(* mark_debug="true" *)reg  [31:0]  period_total;
 //reg          r_pwm_on,r_pwm_off;
 //reg          pwm_on,pwm_off;
 
@@ -72,7 +72,7 @@ always@(posedge i_clk or posedge i_rst)begin  //lock : 64M时 13.56 有5个点�
     else if(lock_cnt > HALF_FREQ_NUM-1)	  
 	      LOCK <= 1'b1;  //+8191
     else 
-	      LOCK <= 1'b0;
+	      LOCK <= 1'b0;  //正常CW波不会中断,一直计数即可,但是PW波,OFF时需要锁住当前的计数值,直到ON时重新计数.
 end	
 //注：取的threshold2on越大越准，从波峰开始计数。一个脉冲上升沿一个周期；
 //buf;

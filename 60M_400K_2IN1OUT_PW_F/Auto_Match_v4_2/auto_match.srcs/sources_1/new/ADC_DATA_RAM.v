@@ -1,13 +1,16 @@
 module ADC_DATA_RAM(
-	input 		    i_clk_64m,
-	input 		    i_clk,	//read clk
-	input 		    i_rstn,
+	input 		i_clk_64m,
+	input 		i_clk,	//read clk
+	input 		i_rstn,
+
 	input 			vld,
 	input [15:0]	CHA,	//vr
 	input [15:0]	CHB,	//vf
+	
 	input 			ADC_RAM_EN      ,		//拉高1个周期
     input [11:0]    ADC_RAM_RD_ADDR ,
     output [31:0]   ADC_RAM_RD_DATA	
+
 );
 
 reg [3:0]	state;

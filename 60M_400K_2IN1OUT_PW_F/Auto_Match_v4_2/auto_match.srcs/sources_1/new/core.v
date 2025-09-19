@@ -574,7 +574,7 @@ module core(
 );
 
 
-parameter READ_ID = 32'd25070101;	//match
+parameter READ_ID = 32'd03010730;	//match
 
 //SPI
 

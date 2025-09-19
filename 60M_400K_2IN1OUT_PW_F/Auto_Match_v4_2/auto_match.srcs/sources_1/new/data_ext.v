@@ -7,7 +7,6 @@ module data_ext(
 	output reg [31:0]	o_data_i,
 	output reg [31:0]	o_data_q,
 	output reg 			o_valid		//50M时钟，要对标16M采样率
-
 );
 
 reg 		wr_en;

@@ -56,7 +56,7 @@ module adc_demod(
     output          o_demod_coef_req        ,
     input           i_demod_coef_data_vld   ,
     input   [15:0]  i_demod_coef_data       ,
-	input   [31:0]  i_demod_freq_coef        //spi设置电源功率频率解调计算；
+	input   [31:0]  i_demod_freq_coef        //spi设置电源功率频率解调计算�?
 );
 //========================================================================
 
@@ -150,7 +150,7 @@ wire 	[31 : 0] 	douta_60M				;
 wire    [31:0]      power_freq_coef         ;
 
 assign  power_freq_coef = i_demod_freq_coef ;
-// adc_demod_coef_rom adc_demod_coef_rom (	//改成rom，固定校准序列
+// adc_demod_coef_rom adc_demod_coef_rom (	//改成rom，固定校准序�?
   // .clka		(i_clk),    // input wire clka
   // .ena		(1'b1),      // input wire ena
   // .addra	(r_demod_rd_addr),  // input wire [11 : 0] addra
@@ -174,24 +174,24 @@ assign  power_freq_coef = i_demod_freq_coef ;
 demod_code	demod_code(
 	.clk_i		(i_clk),
 	.rst_i		(i_rst),
-	//.freq_data	(58239757),	//(freq_data),	//固定13.56M
+	//.freq_data	(58239757),	//(freq_data),	//固定13.56M  4.2949 * 13560000=58,238,844
     .freq_data	(power_freq_coef),	//(freq_data),	//固定13.56M
-	.i			(r_demod_rd_addr),
-	.dout		(s_demod_rd_dout)
+	.i			(r_demod_rd_addr),  //0-3124
+	.dout		(s_demod_rd_dout)   //不同频率的正弦波
 );
 
 always@(posedge i_clk)
 begin
-    r_demod_coef_0_i    <= s_demod_rd_dout[31:16];
-    r_demod_coef_0_q    <= s_demod_rd_dout[15: 0];
+    r_demod_coef_0_i    <= s_demod_rd_dout[31:16];//cos
+    r_demod_coef_0_q    <= s_demod_rd_dout[15: 0];//sin 
 
-    r_demod_coef_1_i    <= s_demod_rd_dout[31:16];
-    r_demod_coef_1_q    <= s_demod_rd_dout[15: 0];
+    r_demod_coef_1_i    <= s_demod_rd_dout[31:16];//cos
+    r_demod_coef_1_q    <= s_demod_rd_dout[15: 0];//sin 
 end
 
 always@(posedge i_clk)
 begin
-    r_coef_len_d0   <= i_coef_len ;
+    r_coef_len_d0   <= i_coef_len ; //d3125
 end
 
 // always @(posedge i_clk or posedge i_rst)
@@ -206,7 +206,7 @@ end
 	// default : s_demod_rd_dout <= douta_2M;
 	// endcase 
 
-complex_mult#(.DEBUG ("NO "))complex_mult0(i_clk, {r_demod_coef_0_i,r_demod_coef_0_q}, r_adc0_data_d3, s_mult_demod0);
+complex_mult#(.DEBUG ("NO "))complex_mult0(i_clk, {r_demod_coef_0_i,r_demod_coef_0_q}, r_adc0_data_d3, s_mult_demod0); //s(t)=I(t)cos(2πfct)−Q(t)sin(2πfct)
 complex_mult#(.DEBUG ("NO "))complex_mult1(i_clk, {r_demod_coef_1_i,r_demod_coef_1_q}, r_adc1_data_d3, s_mult_demod1);
 
 assign s_mult_demod0_i_p = s_mult_demod0[97:49];
@@ -315,7 +315,7 @@ begin
         r_demod_rd_addr <= 'd0;
     end
     else if(i_adc0_vld | i_adc1_vld) begin
-        if(r_demod_rd_addr >= (r_coef_len_d0-1'd1)) begin
+        if(r_demod_rd_addr >= (r_coef_len_d0-1'd1)) begin //d3125
             r_demod_rd_addr <= 'd0;
         end
         else begin
@@ -454,109 +454,109 @@ assign o_adc1_demod_data = {r_adc1_demod_i,r_adc1_demod_q};
 assign o_sys_start       = r_sys_start_d8;
 //======================================================================================================================
 /*
-wire    [63:0]      cordic_dat0_in          ;
-wire                cordic_q0_val           ;
-wire    [63:0]      cordic_q0               ;
+    wire    [63:0]      cordic_dat0_in          ;
+    wire                cordic_q0_val           ;
+    wire    [63:0]      cordic_q0               ;
 
-wire    [63:0]      cordic_dat1_in          ;
-wire                cordic_q1_val           ;
-wire    [63:0]      cordic_q1               ;
+    wire    [63:0]      cordic_dat1_in          ;
+    wire                cordic_q1_val           ;
+    wire    [63:0]      cordic_q1               ;
 
-reg                 r_mod_dat0_vld          ;
-reg                 r_mod_dat0_vld_d0       ;
-reg     [15:0]      r_mod_dat0              ;
-reg     [15:0]      r_mod_dat0_d0           ;
+    reg                 r_mod_dat0_vld          ;
+    reg                 r_mod_dat0_vld_d0       ;
+    reg     [15:0]      r_mod_dat0              ;
+    reg     [15:0]      r_mod_dat0_d0           ;
 
-reg                 r_mod_dat1_vld          ;
-reg                 r_mod_dat1_vld_d0       ;
-reg     [15:0]      r_mod_dat1              ;
-reg     [15:0]      r_mod_dat1_d0           ;
+    reg                 r_mod_dat1_vld          ;
+    reg                 r_mod_dat1_vld_d0       ;
+    reg     [15:0]      r_mod_dat1              ;
+    reg     [15:0]      r_mod_dat1_d0           ;
 
-wire                s_sys_start_sync        ;
-reg                 r_sys_start_sync_d0     ;
-reg                 r_sys_start_sync_d1     ;
-//===================================================================
+    wire                s_sys_start_sync        ;
+    reg                 r_sys_start_sync_d0     ;
+    reg                 r_sys_start_sync_d1     ;
+    //===================================================================
 
-assign cordic_dat0_in = {r_adc0_demod_i,r_adc0_demod_q};
-assign cordic_dat1_in = {r_adc1_demod_i,r_adc1_demod_q};
+    assign cordic_dat0_in = {r_adc0_demod_i,r_adc0_demod_q};
+    assign cordic_dat1_in = {r_adc1_demod_i,r_adc1_demod_q};
 
-adc_demod_cordic adc_demod_cordic_inst0 (      // latency: 40 clock
-  .aclk                     ( i_clk               ),    // input wire aclk
-  .s_axis_cartesian_tvalid  ( r_adc0_demod_vld    ),    // input wire s_axis_cartesian_tvalid
-  .s_axis_cartesian_tdata   ( cordic_dat0_in      ),    // input wire [63 : 0] s_axis_cartesian_tdata
-  .s_axis_cartesian_tuser   ( r_sys_start_d4      ),    // input [0:0]s_axis_cartesian_tuser
-  .m_axis_dout_tvalid       ( cordic_q0_val       ),    // output wire m_axis_dout_tvalid
-  .m_axis_dout_tdata        ( cordic_q0           ),    // output wire [63 : 0] m_axis_dout_tdata
-  .m_axis_dout_tuser        ( s_sys_start_sync    )     // output [0:0]m_axis_dout_tuser
-  );
-  
-  adc_demod_cordic adc_demod_cordic_inst1 (      // latency: 40 clock
-  .aclk                     ( i_clk               ),    // input wire aclk
-  .s_axis_cartesian_tvalid  ( r_adc1_demod_vld    ),    // input wire s_axis_cartesian_tvalid
-  .s_axis_cartesian_tdata   ( cordic_dat1_in      ),    // input wire [63 : 0] s_axis_cartesian_tdata
-  .s_axis_cartesian_tuser   ( r_sys_start_d4      ),    // input [0:0]s_axis_cartesian_tuser
-  .m_axis_dout_tvalid       ( cordic_q1_val       ),    // output wire m_axis_dout_tvalid
-  .m_axis_dout_tdata        ( cordic_q1           ),    // output wire [63 : 0] m_axis_dout_tdata
-  .m_axis_dout_tuser        (                     )     // output [0:0]m_axis_dout_tuser
-  );
+    adc_demod_cordic adc_demod_cordic_inst0 (      // latency: 40 clock
+    .aclk                     ( i_clk               ),    // input wire aclk
+    .s_axis_cartesian_tvalid  ( r_adc0_demod_vld    ),    // input wire s_axis_cartesian_tvalid
+    .s_axis_cartesian_tdata   ( cordic_dat0_in      ),    // input wire [63 : 0] s_axis_cartesian_tdata
+    .s_axis_cartesian_tuser   ( r_sys_start_d4      ),    // input [0:0]s_axis_cartesian_tuser
+    .m_axis_dout_tvalid       ( cordic_q0_val       ),    // output wire m_axis_dout_tvalid
+    .m_axis_dout_tdata        ( cordic_q0           ),    // output wire [63 : 0] m_axis_dout_tdata
+    .m_axis_dout_tuser        ( s_sys_start_sync    )     // output [0:0]m_axis_dout_tuser
+    );
+    
+    adc_demod_cordic adc_demod_cordic_inst1 (      // latency: 40 clock
+    .aclk                     ( i_clk               ),    // input wire aclk
+    .s_axis_cartesian_tvalid  ( r_adc1_demod_vld    ),    // input wire s_axis_cartesian_tvalid
+    .s_axis_cartesian_tdata   ( cordic_dat1_in      ),    // input wire [63 : 0] s_axis_cartesian_tdata
+    .s_axis_cartesian_tuser   ( r_sys_start_d4      ),    // input [0:0]s_axis_cartesian_tuser
+    .m_axis_dout_tvalid       ( cordic_q1_val       ),    // output wire m_axis_dout_tvalid
+    .m_axis_dout_tdata        ( cordic_q1           ),    // output wire [63 : 0] m_axis_dout_tdata
+    .m_axis_dout_tuser        (                     )     // output [0:0]m_axis_dout_tuser
+    );
 
-//-----------------------------------------------------------------------------
-//                      calculate the mod data : 18bit now
-//-----------------------------------------------------------------------------
-always @ (posedge i_clk or posedge i_rst) begin
-  if(i_rst)
-    r_mod_dat0 <= 32'h1;
-  else if(cordic_q0[31] == 1'b1)
-    r_mod_dat0 <= 16'h7fff;
-  else 
-    r_mod_dat0 <= cordic_q0[30:15];
-end
+    //-----------------------------------------------------------------------------
+    //                      calculate the mod data : 18bit now
+    //-----------------------------------------------------------------------------
+    always @ (posedge i_clk or posedge i_rst) begin
+    if(i_rst)
+        r_mod_dat0 <= 32'h1;
+    else if(cordic_q0[31] == 1'b1)
+        r_mod_dat0 <= 16'h7fff;
+    else 
+        r_mod_dat0 <= cordic_q0[30:15];
+    end
 
-always @ (posedge i_clk or posedge i_rst) begin
-  if(i_rst)
-    r_mod_dat1 <= 32'h1;
-  else if(cordic_q1[31] == 1'b1)
-    r_mod_dat1 <= 16'h7fff;
-  else 
-    r_mod_dat1 <= cordic_q1[30:15];
-end
+    always @ (posedge i_clk or posedge i_rst) begin
+    if(i_rst)
+        r_mod_dat1 <= 32'h1;
+    else if(cordic_q1[31] == 1'b1)
+        r_mod_dat1 <= 16'h7fff;
+    else 
+        r_mod_dat1 <= cordic_q1[30:15];
+    end
 
-always @ (posedge i_clk ) begin
-    r_mod_dat0_d0 <= r_mod_dat0;
-    r_mod_dat1_d0 <= r_mod_dat1;
-end
+    always @ (posedge i_clk ) begin
+        r_mod_dat0_d0 <= r_mod_dat0;
+        r_mod_dat1_d0 <= r_mod_dat1;
+    end
 
-always @ (posedge i_clk ) begin
-    r_mod_dat0_vld  <= cordic_q0_val ;
-    r_mod_dat1_vld  <= cordic_q1_val ;
-end
+    always @ (posedge i_clk ) begin
+        r_mod_dat0_vld  <= cordic_q0_val ;
+        r_mod_dat1_vld  <= cordic_q1_val ;
+    end
 
-always @ (posedge i_clk ) begin
-    r_mod_dat0_vld_d0  <= r_mod_dat0_vld ;
-    r_mod_dat1_vld_d0  <= r_mod_dat1_vld ;
-end
+    always @ (posedge i_clk ) begin
+        r_mod_dat0_vld_d0  <= r_mod_dat0_vld ;
+        r_mod_dat1_vld_d0  <= r_mod_dat1_vld ;
+    end
 
-always @ (posedge i_clk ) begin
-    r_sys_start_sync_d0 <= s_sys_start_sync    ;
-    r_sys_start_sync_d1 <= r_sys_start_sync_d0 ;
-end
-*/
+    always @ (posedge i_clk ) begin
+        r_sys_start_sync_d0 <= s_sys_start_sync    ;
+        r_sys_start_sync_d1 <= r_sys_start_sync_d0 ;
+    end
+    */
 
-//===========================================================================
-/*
-ila_1 ila_demod (
-    .clk    (i_clk),
-    .probe0 ({
-			i_adc0_data[63:32],
-			i_adc0_vld,
-			i_adc0_data[31:0],
-			i_sys_start,
-			
-			o_adc0_demod_data[63:32],
-			o_adc0_demod_vld,
-			o_adc0_demod_data[31:0]
-			})
-);	
+    //===========================================================================
+    /*
+    ila_1 ila_demod (
+        .clk    (i_clk),
+        .probe0 ({
+                i_adc0_data[63:32],
+                i_adc0_vld,
+                i_adc0_data[31:0],
+                i_sys_start,
+                
+                o_adc0_demod_data[63:32],
+                o_adc0_demod_vld,
+                o_adc0_demod_data[31:0]
+                })
+    );	
 */
 
 endmodule

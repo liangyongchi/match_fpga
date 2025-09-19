@@ -1,10 +1,8 @@
 module AVG_FIFO_32(
-    input           clk_i,
-    input           rst_i,
-
-    input [31:0]    data_in,
-    input           den_in,
-
+    input               clk_i,
+    input               rst_i,
+    input [31:0]        data_in,
+    input               den_in,
     output reg [31:0]   data_out,
     output reg          den_out
 );

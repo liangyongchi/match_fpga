@@ -308,12 +308,12 @@ parameter
 	ID_m1a10_ch0    		     = 734,	//32,
 	ID_m1a11_ch0    		     = 735,	//32,	
 	
-	ID_m1a00_ch1    		     = 738,	//NO USE :FREE;
+	ID_m1a00_ch1    		     = 738,	//NO USE :FREE; OS0
 	ID_m1a01_ch1    		     = 739,	
 	ID_m1a10_ch1    		     = 740,	
 	ID_m1a11_ch1    		     = 741,		
 	
-	ID_m1a00_ch2    		     = 745,	//OS0
+	ID_m1a00_ch2    		     = 745,	//lf
 	ID_m1a01_ch2    		     = 746,	
 	ID_m1a10_ch2    		     = 747,	
 	ID_m1a11_ch2    		     = 748,	
@@ -705,6 +705,7 @@ parameter
     DEFAULT_OS1_400k_pulse_end         = 16'd700    ,
     DEFAULT_i1_pwm_dly_400K            = 16'd100    ,
     
+//射频开关频率2K,不是根据射频频率决定的。
     DEFUALT_OS2_400k_detect_rise_dly   = 24'd100    ,
     DEFUALT_OS2_400k_detect_fall_dly   = 24'd50     ,
     DEFUALT_OS2_400k_rise_jump         = 10'd19     ,
@@ -715,7 +716,6 @@ parameter
     DEFAULT_i2_pwm_dly_400K            = 16'd100    ,
 
 
-	
 	DEFUALT_fft_period           = 16'd2000   ,
 	//DEFUALT_division_coef        = 32'd100000 ,//1249999
     DEFUALT_division_coef        = 32'd11875000,//5ms;

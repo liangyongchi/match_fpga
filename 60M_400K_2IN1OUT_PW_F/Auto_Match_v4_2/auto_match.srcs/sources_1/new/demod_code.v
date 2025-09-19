@@ -50,7 +50,7 @@ wire [31 : 0]   P0;
 reg  [31 : 0]	freq_data_r0;
 mult_unsigned_16x16 u0 (
   .CLK		(clk_i),  // input wire CLK
-  .A		(16'd125),      // input wire [15 : 0] A	2^32
+  .A		(16'd125),// input wire [15 : 0] A	2^32
   .B		(i),      // input wire [15 : 0] B
   .P		(P0)      // output wire [31 : 0] P
 );
@@ -63,7 +63,7 @@ mult_unsigned_32x32 u1 (
   .CLK		(clk_i),  	
   .A		(P0),     	//22bit;
   .B		(freq_data_r0),      	
-  .P		(P1)    //32定点数，需要转成16定点数
+  .P		(P1)    //32定点数，�?要转�?16定点�?
 );
 
 wire [47 : 0] Pout;
@@ -98,7 +98,7 @@ wire [15:0]	sin_out,cos_out;
 sin_cos_ctrl	sin_cos_ctrl(
 	.clk_i		(clk_i),
 	.rst_i		(rst_i),
-	.din		(din),	//16位定点数，65535
+	.din		(din),	//16位定点数�?65535
 	.sin_out	(sin_out),
 	.cos_out	(cos_out)
 );
